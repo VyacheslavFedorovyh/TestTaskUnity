@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class TouchHandlerDestroyEnemy : MonoBehaviour
 {
-	[SerializeField] private GameObject Enemy;
+	[SerializeField] private GameObject GameObjectDestroyEnemy;
 	[SerializeField] private int HealthEnemy;
 
 	private void OnMouseDown()
 	{
 		if (--HealthEnemy <= 0)
-			Destroy(Enemy);
+			Destroy(GameObjectDestroyEnemy);
 	}
 }

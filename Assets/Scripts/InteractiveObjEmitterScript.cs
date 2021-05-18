@@ -7,6 +7,7 @@ using static StructuraJson;
 
 public class InteractiveObjEmitterScript : MonoBehaviour
 {
+	[Header("Random Create Interactive Obj")]
 	[SerializeField] private List<GameObject> prefabInteractiveObj = new List<GameObject>();
 	public float launchDelayInteractiveObj = 10f;
 	private float nextLaunchTime;
@@ -20,8 +21,7 @@ public class InteractiveObjEmitterScript : MonoBehaviour
 	void Update()
 	{
 		if (Time.time > nextLaunchTime)
-		{
-			int prefabIndex = UnityEngine.Random.Range(0, prefabInteractiveObj.Count - 1);
+		{			
 			var position = Vector3.zero;
 
 			if (loadingFromFile)
@@ -52,6 +52,7 @@ public class InteractiveObjEmitterScript : MonoBehaviour
 				position = transform.position + new Vector3(shiftX, shiftY, shiftZ);
 			}
 
+			int prefabIndex = UnityEngine.Random.Range(0, prefabInteractiveObj.Count - 1);
 			Instantiate(prefabInteractiveObj[prefabIndex], position, Quaternion.identity);
 
 			nextLaunchTime = Time.time + launchDelayInteractiveObj;

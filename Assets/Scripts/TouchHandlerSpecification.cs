@@ -4,16 +4,15 @@ using UnityEngine.UI;
 public class TouchHandlerSpecification : MonoBehaviour
 {
 	[SerializeField] private GameObject specificationUI;
-	[SerializeField] private Text text;
 	[SerializeField] private string specification = "Specification";
-	[SerializeField] private float displayTime;
+	[SerializeField] private float displayTimeindicatorUI = 1.5f;
 
 	private void OnMouseDown()
 	{
-		text.text = specification;
+		specificationUI.GetComponent<Text>().text = specification;
 		specificationUI.gameObject.SetActive(true);
 
-		Invoke(nameof(SetActive), displayTime);
+		Invoke(nameof(SetActive), displayTimeindicatorUI);
 	}
 
 	private void SetActive()
