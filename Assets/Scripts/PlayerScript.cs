@@ -14,10 +14,15 @@ public class PlayerScript : MonoBehaviour
 	[SerializeField] private float currentExperience = 0;
 
 	public LayerMask whatCanBeClickedOn;
+	public PlayerValue playerValue;
 	private NavMeshAgent myAgent;
 
 	private void Start()
 	{
+		transform.position = playerValue.initialValye;
+		currentHealth = playerValue.currentHealth != 0 ? playerValue.currentHealth : currentHealth;
+		currentExperience = playerValue.currentExperience != 0 ? playerValue.currentExperience : currentExperience;
+
 		healthPlayer.Setup(currentHealth, maxHealth);
 		experiencePlayer.Setup(currentExperience, maxExperience);
 
@@ -38,6 +43,23 @@ public class PlayerScript : MonoBehaviour
 		}
 
 		if (healthPlayer.slider.value <= 0)
+		{
 			FindObjectOfType<GameManager>().EndGame();
+			OnApplicationQuit();
+		}
+	}
+
+	public void PositionVectorValue()
+	{
+		playerValue.initialValye = transform.position;
+		playerValue.currentHealth = healthPlayer.slider.value;
+		playerValue.currentExperience = experiencePlayer.slider.value;
+	}
+
+	void OnApplicationQuit()
+	{
+		playerValue.initialValye = Vector3.zero;
+		playerValue.currentHealth = 0;
+		playerValue.currentExperience = 0;
 	}
 }
