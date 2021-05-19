@@ -13,9 +13,9 @@ public class PlayerScript : MonoBehaviour
 	[SerializeField] private float maxExperience = 1000f;
 	[SerializeField] private float currentExperience = 0;
 
-	public LayerMask whatCanBeClickedOn;
 	public PlayerValue playerValue;
-	private NavMeshAgent myAgent;
+	private Camera mainCamera;
+	private NavMeshAgent agent;
 
 	private void Start()
 	{
@@ -26,20 +26,17 @@ public class PlayerScript : MonoBehaviour
 		healthPlayer.Setup(currentHealth, maxHealth);
 		experiencePlayer.Setup(currentExperience, maxExperience);
 
-		myAgent = GetComponent<NavMeshAgent>();
+		mainCamera = Camera.main;
+		agent = GetComponent<NavMeshAgent>();
 	}
 
 	private void Update()
 	{
 		if (Input.GetMouseButtonDown(0))
 		{
-			Ray myRay = Camera.main.ScreenPointToRay(Input.mousePosition);
-			RaycastHit hitInfo;
-
-			if (Physics.Raycast(myRay, out hitInfo, 100, whatCanBeClickedOn))
-			{
-				myAgent.SetDestination(hitInfo.point);
-			}
+			RaycastHit hit;
+			if (Physics.Raycast(mainCamera.ScreenPointToRay(Input.mousePosition), out hit))
+				agent.SetDestination(hit.point);			
 		}
 
 		if (healthPlayer.slider.value <= 0)
